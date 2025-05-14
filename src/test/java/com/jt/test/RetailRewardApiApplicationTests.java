@@ -1,21 +1,6 @@
 package com.jt.test;
 
 import org.junit.jupiter.api.Test;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class RetailRewardApiApplicationTests {
-
-	
-	
-	@Test
-	void contextLoads() {
-	}
-=======
->>>>>>> feature
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -155,9 +140,5 @@ class RetailRewardApiApplicationTests {
 		  Assertions.assertEquals(90, totPoints); 
 	  }
 	
-<<<<<<< HEAD
-=======
->>>>>>> 4468398 (commit changes)
->>>>>>> feature
 
 }

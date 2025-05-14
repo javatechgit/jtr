@@ -7,5 +7,8 @@ import com.jt.entity.CustomerEntity;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity,Long> {
+<<<<<<< HEAD
     public CustomerEntity findByCustomerId(Long customerId);
+=======
+>>>>>>> 4468398 (commit changes)
 }

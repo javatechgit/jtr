@@ -9,9 +9,22 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+<<<<<<< HEAD
 import lombok.Data;
 
 @Data
+=======
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+>>>>>>> 4468398 (commit changes)
 @Entity
 @Table(name = "RETAIL_TRANSACTIONS")
 public class TransactionEntity {
@@ -22,6 +35,10 @@ public class TransactionEntity {
     private Long transactionId;
 
 	@NotNull(message = "customer id is required")
+<<<<<<< HEAD
+=======
+	@Positive(message = "customer id should positive number")
+>>>>>>> 4468398 (commit changes)
     @Column(name="CUSTOMER_ID")
     private Long customerId;
 
@@ -30,7 +47,11 @@ public class TransactionEntity {
     private Timestamp transactionDate;
 
 	@NotNull(message = "transaction amount is required")
+<<<<<<< HEAD
 	@Min(value = 1,message = "transaction amount can not be lower than 1")
+=======
+	@Min(value = 1,message = "transaction amount is required and can not be lower than 1")
+>>>>>>> 4468398 (commit changes)
     @Column(name = "TRANSACTION_AMOUNT")
     private double transactionAmount;
 

@@ -32,7 +32,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+<<<<<<< HEAD
 			<artifactId>spring-boot-starter-actuator</artifactId>
+=======
+			<artifactId>spring-boot-starter-web</artifactId>
+>>>>>>> 4468398 (commit changes)
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -44,9 +48,14 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+<<<<<<< HEAD
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+=======
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+>>>>>>> 4468398 (commit changes)
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>

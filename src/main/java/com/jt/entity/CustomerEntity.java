@@ -7,9 +7,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+<<<<<<< HEAD
 import lombok.Data;
 
 @Data
+=======
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+>>>>>>> 4468398 (commit changes)
 @Entity
 @Table(name = "RETAIL_CUSTOMERS")
 public class CustomerEntity {

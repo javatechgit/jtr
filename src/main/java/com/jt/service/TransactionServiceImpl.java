@@ -1,21 +1,5 @@
 package com.jt.service;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.jt.entity.TransactionEntity;
-import com.jt.repository.TransactionRepository;
-
-
-=======
->>>>>>> feature
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,32 +20,12 @@ import com.jt.model.ApiResponse;
 import com.jt.repository.CustomerRepository;
 import com.jt.repository.TransactionRepository;
 
-<<<<<<< HEAD
-=======
->>>>>>> 4468398 (commit changes)
->>>>>>> feature
 @Service
 public class TransactionServiceImpl implements TransactionService {
 	
 	@Autowired
 	TransactionRepository transactionRepository;
 	
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-	 public TransactionEntity saveTransactionEntity(TransactionEntity transactionEntity) {
-	        return transactionRepository.save(transactionEntity);
-	    }
-	 
-	 public Optional<TransactionEntity> findTransactionsById(Long customerId) {
-		 return transactionRepository.findById(customerId);
-	 }
-
-	public List<TransactionEntity> findTransactionBetweenDate(Long customerId,Timestamp startDate,
-			Timestamp endDate) {
-		return transactionRepository.findAllByCustomerIdAndTransactionDateBetween(customerId,startDate, endDate);
-=======
->>>>>>> feature
 	@Autowired
 	CustomerRepository customerRepository;
 	
@@ -145,9 +109,5 @@ public class TransactionServiceImpl implements TransactionService {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(transactionRepository.findById(transactionId));
 	
-<<<<<<< HEAD
-=======
->>>>>>> 4468398 (commit changes)
->>>>>>> feature
 	}
 }

@@ -7,14 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-import lombok.Data;
-
-@Data
-=======
->>>>>>> feature
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,10 +16,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-<<<<<<< HEAD
-=======
->>>>>>> 4468398 (commit changes)
->>>>>>> feature
 @Entity
 @Table(name = "RETAIL_CUSTOMERS")
 public class CustomerEntity {

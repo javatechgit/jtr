@@ -31,10 +31,34 @@ public class CustomerServiceLayerTest {
 		 Mockito.when(customerRepository.save(any(CustomerEntity.class))).thenReturn(mockCustomer);
 
 	     CustomerEntity savedCustomer = customerRepository.save(mockCustomer);
+	    // Assertions.assertEquals(expMock, actualDB);
 	     Assertions.assertTrue(savedCustomer.getCustomerFName().equals("CustomerFName"));
 	 }
-	 
-	 
-	 
+	
+	/*
+	Service Layer Test format -
+	class UserServiceTest {
 
+    @Mock
+    private UserRepository userRepository;
+
+    @InjectMocks
+    private UserService userService;
+
+    @Test
+    void getUserById_existingUser_returnsUser() {
+        // Arrange
+        Long userId = 1L;
+        User mockUser = new User(userId, "Test User");
+        when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
+
+        // Act
+        User result = userService.getUserById(userId);
+
+        // Assert
+        assertEquals(mockUser, result);
+    } 
+	 
+	 
+*/
 }

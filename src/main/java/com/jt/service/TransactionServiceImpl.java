@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
 import com.jt.constant.ApiConstants;
 import com.jt.entity.CustomerEntity;
 import com.jt.entity.TransactionEntity;
 import com.jt.errors.ApiErrors;
+import com.jt.exception.ResourceNotFoundException;
 import com.jt.model.ApiResponse;
 import com.jt.repository.CustomerRepository;
 import com.jt.repository.TransactionRepository;
@@ -30,28 +32,38 @@ public class TransactionServiceImpl implements TransactionService {
 	CustomerRepository customerRepository;
 	
 	@Override
-	public Object saveTransaction(TransactionEntity transactionEntity,Errors errors) {	
-		 if(errors.hasErrors()) {
-		 List<String> fieldErrorList = errors.getFieldErrors().stream().map(fe->fe.getDefaultMessage()).collect(Collectors.toList());
+	@Transactional
+	public ResponseEntity<?> saveTransaction(TransactionEntity transactionEntity) {	
+		/* List<String> fieldErrorList = errors.getFieldErrors().stream().map(fe->fe.getDefaultMessage()).collect(Collectors.toList());
 		 ApiErrors errorResponse = new ApiErrors("API_BAD_REQUEST", fieldErrorList);	
 		 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);	 
-		 }
-		 
-		 Optional<CustomerEntity> dbCustomerId =	customerRepository.findById(transactionEntity.getCustomerId());
-		 if(dbCustomerId.isPresent()) { 
-		 return ResponseEntity.status(HttpStatus.CREATED).body(transactionRepository.save(transactionEntity));
-		 }else {
-		 ApiErrors errorResponse = new ApiErrors("CUSTOMER_NOT_FOUND", Arrays.asList("Customer id not exist in db table.Can't create this transaction"));	
-		 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-		 }
+		 }*/
+	 try {
+	 Optional<CustomerEntity> dbCustomerId = customerRepository.findById(transactionEntity.getCustomerId());
+	 if(dbCustomerId.isPresent()) { 
+		 return new ResponseEntity<>(transactionRepository.save(transactionEntity),HttpStatus.CREATED);
+	 }else {
+		 ApiErrors errorResponse = new ApiErrors("CUSTOMER_NOT_FOUND", Arrays.asList("Customer id not exist in db table.Can't create this transaction")); 
+	   return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+	 }
+	 }catch(Exception e) {
+	   return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+	 }
+			/*
+			 * else { ApiErrors errorResponse = new ApiErrors("CUSTOMER_NOT_FOUND", Arrays.
+			 * asList("Customer id not exist in db table.Can't create this transaction"));
+			 * return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse); }
+			 */
 	}
 	
 	@Override
-	public Object getTransactionRewardsById(Long customerId) {
-	    Optional<CustomerEntity> dbCustomerId = customerRepository.findById(customerId);
+	@Transactional
+	public ResponseEntity<?> getTransactionRewardsById(Long customerId)/* throws ResourceNotFoundException*/ {
 	    List<TransactionEntity> lastMonthTransactions = new ArrayList<>();
 	    List<TransactionEntity> lastSecondMonthTransactions = new ArrayList<>();
 	    List<TransactionEntity> lastThirdMonthTransactions = new ArrayList<>();
+	    try {
+	    Optional<CustomerEntity> dbCustomerId = customerRepository.findById(customerId);
 	    if(dbCustomerId.isPresent()) {
 	    ApiResponse apiResponse = new ApiResponse();	  
 	    apiResponse.setSuccess("Get All Transactions Successfully for Customer:");
@@ -85,6 +97,10 @@ public class TransactionServiceImpl implements TransactionService {
 		ApiErrors errorResponse = new ApiErrors("CUSTOMER_NOT_FOUND", Arrays.asList("Customer id not found/invalid"));	
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
 		}
+	    }catch(Exception e) {
+	    	// throw new ResourceNotFoundException(e.getLocalizedMessage());
+	    	return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+	    }
 	}
 	
 	private Long totalRewardPoints(TransactionEntity transactionEntity) {
@@ -101,13 +117,27 @@ public class TransactionServiceImpl implements TransactionService {
 	   return totalRewardPoints;
 	   }
 	
-	 @Override
-	 public Object getTransactionById(Long transactionId) {	
-	 if(transactionId ==null) {
-			ApiErrors errorResponse = new ApiErrors("TRANSACTION_NOT_FOUND", Arrays.asList("Transaction id not found or invalid"));	
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(transactionRepository.findById(transactionId));
-	
+	@Override
+	@Transactional
+	public ResponseEntity<?> getTransactionById(Long transactionId) throws ResourceNotFoundException {
+		try {
+	return new ResponseEntity<>(transactionRepository.findById(transactionId).get(),HttpStatus.OK);
+	//return new ResponseEntity<>(HttpStatus.OK).body(customerRepository.findById(customerId));
+	}catch(Exception e) {
+	throw new ResourceNotFoundException("TransactionId:"+transactionId+" "+e.getMessage());
+		//return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
+	}
+	
+	/*
+	 * @Override public Object getTransactionById(Long transactionId) {
+	 * if(transactionId ==null) { ApiErrors errorResponse = new
+	 * ApiErrors("TRANSACTION_NOT_FOUND",
+	 * Arrays.asList("Transaction id not found or invalid")); return
+	 * ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse); } return
+	 * ResponseEntity.status(HttpStatus.OK).body(transactionRepository.findById(
+	 * transactionId));
+	 * 
+	 * }
+	 */
 }

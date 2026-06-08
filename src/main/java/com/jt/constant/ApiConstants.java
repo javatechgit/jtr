@@ -2,7 +2,7 @@ package com.jt.constant;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
+//change1
 public interface ApiConstants {
 	Timestamp FROM_TODAY_DATE = Timestamp.valueOf(LocalDateTime.now());
 	Timestamp LAST_MONTH_TRANSACTION_FROM_TODAY_TO_30_DAYS_BACK = Timestamp.valueOf(LocalDateTime.now().minusDays(30));

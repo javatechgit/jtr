@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(value = {"com.jt.controller","com.jt.service","com.jt.repository","com.jt.entity","com.jt.model","com.jt.errors"})
+@ComponentScan(value = {"com.jt.controller","com.jt.service","com.jt.repository","com.jt.entity","com.jt.model","com.jt.errors","com.jt.advice"})
 public class RetailRewardApiApplication {
 
 	public static void main(String[] args) {
